@@ -15,12 +15,12 @@ public class Calculator {
 
     String [] buttonValues = {
         "AC","+/-", "%", "÷",
-        "7", "8", "9", "X",
+        "7", "8", "9", "×",
         "4", "5", "6", "-",
         "1", "2", "3", "+",
         "0", ".", "√", "="
     };
-    String[] rightSymbols = {"÷","X","-","+","="};
+    String[] rightSymbols = {"÷","×","-","+","="};
     String[] topSymbols = {"AC","+/-", "%"};
 
 
@@ -47,5 +47,17 @@ public class Calculator {
         displayPanel.setLayout(new BorderLayout());
         displayPanel.add(displayLabel);
         frame.add(displayPanel, BorderLayout.NORTH);
+
+        buttonsPanel.setLayout(new GridLayout(5,4));
+        buttonsPanel.setBackground(customBlack);
+        frame.add(buttonsPanel);
+
+        for (int i = 0; i < buttonValues.length; i++) {
+            JButton button = new JButton();
+            String buttonValue = buttonValues[i];
+            button.setFont(new Font("Arial", Font.PLAIN, 30));
+            button.setText(buttonValue);
+            buttonsPanel.add(button);
+        }
     }
 }
