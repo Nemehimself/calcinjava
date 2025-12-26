@@ -60,6 +60,7 @@ public class Calculator {
             button.setFocusable(false);
             button.setOpaque(true);
             // button.setBorderPainted(false);
+            button.setBorder(new LineBorder(customBlack));
 
             if (Arrays.asList(topSymbols).contains(buttonValue)){
                 button.setBackground(customLightGray);
@@ -75,6 +76,32 @@ public class Calculator {
             }
 
             buttonsPanel.add(button);
+
+            button.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e){
+                    JButton button = (JButton) e.getSource();
+                    String buttonValue = button.getText();
+                    if (Arrays.asList(rightSymbols).contains(buttonValue)){
+
+                    }
+                    else if (Arrays.asList(topSymbols).contains(buttonValue)){
+
+                    }
+                    else {
+                        if (buttonValue == "."){
+                            
+                        }
+                        else if ("0123456789".contains(buttonValue)){
+                            if (displayLabel.getText() == "0") {
+                                displayLabel.setText(buttonValue);
+                            }
+                            else {
+                                displayLabel.setText(displayLabel.getText() + buttonValue);
+                            }
+                        }
+                    }
+                }
+            });
         }
     }
 }
