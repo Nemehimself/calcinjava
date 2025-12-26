@@ -29,6 +29,11 @@ public class Calculator {
     JPanel displayPanel = new JPanel();
     JPanel buttonsPanel = new JPanel();
 
+    //A+B, A-B, A*B, A/B
+    String A = "0";
+    String operator = null;
+    String B = null;
+
     Calculator() {
         frame.setVisible(true);
         frame.setSize(boardWidth, boardHeight);
@@ -85,11 +90,22 @@ public class Calculator {
 
                     }
                     else if (Arrays.asList(topSymbols).contains(buttonValue)){
+                        if (buttonValue == "AC") {
+                            clearAll();
+                            displayLabel.setText("0");
+                        }
+                        else if (buttonValue == "+/-"){
+                            
+                        }
+                        else if (buttonValue == "%"){
 
+                        }
                     }
                     else {
                         if (buttonValue == "."){
-                            
+                            if (!displayLabel.getText().contains(buttonValue)){
+                                displayLabel.setText(displayLabel.getText() + buttonValue);
+                            }
                         }
                         else if ("0123456789".contains(buttonValue)){
                             if (displayLabel.getText() == "0") {
@@ -103,5 +119,11 @@ public class Calculator {
                 }
             });
         }
+    }
+
+    void clearAll(){
+        A = "0";
+        operator = null;
+        B = null;
     }
 }
