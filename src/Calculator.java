@@ -3,6 +3,8 @@ import java.awt.event.*;
 import java.util.Arrays;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Calculator {
     int boardWidth = 360;
@@ -86,24 +88,27 @@ public class Calculator {
                     JButton button = (JButton) e.getSource();
                     String buttonValue = button.getText();
                     if (Arrays.asList(rightSymbols).contains(buttonValue)){
-                        if (buttonValue == "=") {
+                        if (buttonValue.equals ("=")) {
                             if (A != null) {
                                 B = displayLabel.getText();
-                                double numA = Double.parseDouble(A);
-                                double numB = Double.parseDouble(B);
+                                BigDecimal numA = new BigDecimal (A);
+                                BigDecimal numB = new BigDecimal (B);
+                                BigDecimal result = BigDecimal.ZERO;
 
-                                if (operator == "+") {
-                                    displayLabel.setText(removeZeroDecimal(numA+numB));
+                                if (operator.equals ("+")) {
+                                    result = numA.add(numB);
                                 }
-                                else if (operator == "-") {
-                                    displayLabel.setText(removeZeroDecimal(numA-numB));
+                                else if (operator.equals ("-")) {
+                                    result = numA.subtract(numB);
                                 }
-                                else if (operator == "×") {
-                                    displayLabel.setText(removeZeroDecimal(numA*numB));
+                                else if (operator.equals( "×")) {
+                                    result = numA.multiply(numB);
                                 }
-                                else if (operator == "÷") {
-                                    displayLabel.setText(removeZeroDecimal(numA/numB));
+                                else if (operator.equals( "÷")) {
+                                    result = numA.divide(numB, 10, RoundingMode.HALF_UP);
                                 }
+
+                                displayLabel.setText(removeZeroDecimal(result.doubleValue()));
                                 clearAll();
                             }
                         }
@@ -117,23 +122,23 @@ public class Calculator {
                         }
                     }
                     else if (Arrays.asList(topSymbols).contains(buttonValue)){
-                        if (buttonValue == "AC") {
+                        if (buttonValue.equals ("AC")) {
                             clearAll();
                             displayLabel.setText("0");
                         }
-                        else if (buttonValue == "+/-"){
+                        else if (buttonValue.equals ("+/-")){
                             double numDisplay = Double.parseDouble(displayLabel.getText());
                             numDisplay *= -1;
                             displayLabel.setText(removeZeroDecimal(numDisplay));
                         }
-                        else if (buttonValue == "%"){
+                        else if (buttonValue.equals ("%")){
                             double numDisplay = Double.parseDouble(displayLabel.getText());
                             numDisplay /= 100;
                             displayLabel.setText(removeZeroDecimal(numDisplay));
                         }
                     }
                     else {
-                        if (buttonValue == "."){
+                        if (buttonValue.equals (".")){
                             if (!displayLabel.getText().contains(buttonValue)){
                                 displayLabel.setText(displayLabel.getText() + buttonValue);
                             }
